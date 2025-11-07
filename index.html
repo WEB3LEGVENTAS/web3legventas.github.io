@@ -1,41 +1,45 @@
-<!DOCTYPE html><!-- 
-    CÓDIGO COMPLETO Y FINAL.
-    Incluye: CSS/Librerías, Corrección de alineación de íconos SVG para Odoo, y todas las modificaciones de texto y botones.
--->
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <!-- Librerías de HEAD -->
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Primera Wallet Digital - Paquete Premium</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome 4.5 para el botón flotante -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         /* CONFIGURACIÓN BASE - Dark Fintech Elegante */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0d111c; /* Fondo oscuro y profundo (casi negro) */
+            background-color: #1D0D36; /* FONDO: Púrpura muy oscuro */
             color: #f3f4f6; /* Texto claro */
         }
-        
-        /* HEADER BG - Gradiente corporativo oscuro */
+        /* HEADER BG - Morado Vibrante de la imagen */
         .header-bg {
-            background: linear-gradient(135deg, #1e3a8a 0%, #0c4a6e 100%); /* Tonos de azul oscuro profesional */
+            background: #6A0DAD; /* Púrpura brillante */
         }
-
+        
         /* CTA BUTTON - Azul principal de confianza y tecnología */
         .cta-button {
             background-color: #3b82f6; /* Azul brillante y confiable */
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
             font-weight: 700;
-            text-decoration: none !important; /* Elimina el subrayado */
+            text-decoration: none !important; 
         }
         .cta-button:hover {
             background-color: #2563eb;
             transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(37, 99, 235, 0.6);
-            text-decoration: none !important; /* Asegura que no aparezca en hover */
+            text-decoration: none !important; 
+        }
+        /* CLASE ADICIONAL PARA EFECTO DE CLICK EN CTA (JAVASCRIPT) */
+        .cta-button-clicked {
+             transform: translateY(1px) scale(0.98);
+             box-shadow: 0 2px 6px rgba(37, 99, 235, 0.9);
         }
 
         /* CARD STYLE - Tarjetas en Dark Mode con borde sutil */
@@ -67,6 +71,14 @@
             height: 1.5em;
             stroke-width: 2; /* Grosor de línea para el estilo "outline" */
             vertical-align: middle; /* Fuerza alineación vertical en el centro */
+            /* AÑADIDO: Transición para efectos interactivos */
+            transition: stroke 0.3s ease, color 0.3s ease, transform 0.2s ease;
+            cursor: pointer; /* Indica que es clickeable/interactivo */
+        }
+        /* CLASE INTERACTIVA PARA ICONOS DE VALOR AÑADIDO (Girar y cambiar color) */
+        .icon-activated {
+            color: #fcd34d !important; /* Amarillo para resaltar (usado en JS click) */
+            transform: rotate(10deg) scale(1.1);
         }
         
         /* CORRECCIÓN FORZADA PARA LOS ÍCONOS DE METODOLOGÍA (Fase 1 y 2) */
@@ -100,328 +112,471 @@
             box-shadow: 0 6px 15px rgba(37, 211, 102, 0.8);
             background-color: #1FAF59; /* Un poco más oscuro en hover */
         }
+
+        /* CSS PARA EL NUEVO EFECTO DE ZOOM (SIMPLE Y EN LA PÁGINA) */
+        .zoom-container {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .zoom-effect {
+            transform: scale(1.8) translateY(10%); 
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+            z-index: 50; 
+            border-color: #fcd34d !important; 
+        }
+        /* CONTENEDOR DE CONSEJO RÁPIDO PARA RIESGOS */
+        .quick-tip {
+            margin-top: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: #3f1e5e; /* Morado oscuro para el tip */
+            color: #d1d5db;
+            font-size: 0.9em;
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+        .quick-tip.active {
+            max-height: 100px; /* Suficiente para mostrar el texto */
+            opacity: 1;
+        }
+
+        /* ESTILOS HOVER AÑADIDOS A ICONOS DE TARJETAS */
+        /* 1. Efecto hover para iconos en tarjetas de Riesgos y Metodología (Grandes) */
+        .pro-card:hover .fintech-icon {
+            transform: rotate(10deg) scale(1.1);
+            color: #fcd34d; /* Amarillo suave para destacar */
+            stroke: #fcd34d; /* También para el stroke si es un SVG */
+        }
+        /* 2. Efecto hover específico para los iconos dentro de "Valor Añadido" (Título) */
+        .pro-card:hover h4 .fintech-icon {
+            transform: scale(1.15) rotate(5deg);
+            color: #60a5fa; /* Azul claro para la sección de valor */
+            stroke: #60a5fa;
+        }
+        /* 3. **NUEVO:** Efecto hover para los iconos DENTRO DE LAS LISTAS (small check/alert icons) */
+        .pro-card ul li:hover .fintech-icon {
+            transform: translateX(5px) scale(1.1); /* Desplazamiento lateral sutil */
+            color: #fcd34d; /* Color de acento para hover */
+            stroke: #fcd34d;
+        }
+        /* Aseguramos cursor-pointer en las tarjetas principales y listas */
+        .pro-card.cursor-pointer, .pro-card ul li {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="min-h-screen">
-<!-- COMIENZA EL CONTENIDO DEL BODY -->
-
-    <header class="header-bg py-16 md:py-24 text-center rounded-b-3xl shadow-xl">
-        <div class="container mx-auto px-4 max-w-6xl">
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight text-white">
-                La <span class="text-blue-300">Guía</span> Esencial: <br class="sm:hidden">
-                Seguridad y Confianza en tu Primera Wallet Digital
-            </h1>
-            <h2 class="text-xl sm:text-2xl font-light mb-12 text-blue-200 max-w-3xl mx-auto">
-                Adquiera los fundamentos clave y reciba **45 Días de Asistencia Personal Directa**
-                para blindar su inversión contra **errores** costosos.
-            </h2>
+<header class="header-bg py-16 md:py-24 text-center rounded-b-3xl shadow-xl">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight text-white" data-aos="fade-down">
+            La <span class="text-blue-300">Guía</span> Esencial: <br class="sm:hidden">
+            Seguridad y Confianza en tu Primera Wallet Digital
+        </h1>
+        <h2 class="text-xl sm:text-2xl font-light mb-12 text-blue-200 max-w-3xl mx-auto" data-aos="fade-down" data-aos-delay="300">
+            Adquiera los fundamentos clave y reciba **45 Días de Asistencia Personal Directa**
+            para blindar su inversión contra **errores** costos.
+        </h2>
+        
+        <div class="flex flex-col lg:flex-row justify-center items-center lg:space-x-12 space-y-10 lg:space-y-0">
             
-            <div class="flex flex-col lg:flex-row justify-center items-center lg:space-x-12 space-y-10 lg:space-y-0">
-                
-                <div class="w-3/4 md:w-1/3 max-w-xs transition duration-300 hover:scale-[1.03]">
-                    <!-- IMAGEN REAL DEL EBOOK INSERTADA -->
-                    <img src="PORTADA_EBOOK.jpg" 
-                         alt="Portada del Ebook Tu Primera Wallet Digital" 
-                         class="w-full rounded-xl shadow-2xl border-4 border-blue-400/50">
-                </div>
+            <div class="w-3/4 md:w-1/3 max-w-xs transition duration-300 hover:scale-[1.03] zoom-container">
+                <img src="PORTADA_EBOOK.jpg" 
+                     alt="Portada del Ebook Tu Primera Wallet Digital" 
+                     class="w-full rounded-xl shadow-2xl border-4 border-blue-400/50 cursor-pointer transition-transform duration-300 ease-in-out"
+                     id="ebook-portada"
+                     onclick="toggleZoom()">
+            </div>
 
-                <div class="w-full lg:w-2/5 max-w-lg p-8 bg-gray-800 rounded-xl shadow-2xl border border-blue-500/50 text-left">
-                    <p class="text-xl font-semibold mb-2 text-gray-300">Paquete de Formación + Soporte (El Camino Seguro):</p>
-                    <p class="text-5xl font-black mb-6 text-authority"> 
-                         $35 <span class="text-2xl text-gray-400 font-bold">USD</span>
+            <div class="w-full lg:w-2/5 max-w-lg p-8 bg-gray-800 rounded-xl shadow-2xl border border-blue-500/50 text-left" data-aos="fade-left">
+                <p class="text-xl font-semibold mb-2 text-gray-300">Paquete de Formación + Soporte (El Camino Seguro):</p>
+                <p class="text-5xl font-black mb-6 text-authority"> 
+                    $35 <span class="text-2xl text-gray-400 font-bold">USD</span>
+                </p>
+                <a href="https://pay.hotmart.com/R101976222F" 
+                   class="cta-button w-full inline-block py-4 text-xl font-extrabold uppercase rounded-lg text-white tracking-wider no-underline text-center"
+                   aria-label="Acceder al Paquete Premium"
+                   onmousedown="setCtaActive(this)" onmouseup="setCtaInactive(this)"
+                   >
+                    ACCEDER AL PAQUETE PREMIUM
+                </a>
+                <p class="text-sm mt-3 text-gray-400 text-center">Incluye: Ebook PDF profesional + 45 días de soporte en Telegram.</p>
+
+                <div class="mt-6 p-4 bg-green-900/40 border border-green-600 rounded-lg text-left">
+                    <p class="text-lg font-extrabold text-green-300 mb-2 flex items-center">
+                        <svg class="fintech-icon w-6 h-6 mr-2 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-3m-3-4l-3-3m0 0l-3 3m3-3v12"/>
+                        </svg>
+                        PASO 2: ACCESO AL GRUPO PRIVADO
                     </p>
-                    <a href="https://pay.hotmart.com/R101976222F" 
-                       class="cta-button w-full inline-block py-4 text-xl font-extrabold uppercase rounded-lg text-white tracking-wider no-underline text-center"
-                       aria-label="Acceder al Paquete Premium">
-                        ACCEDER AL PAQUETE PREMIUM
-                    </a>
-                    <p class="text-sm mt-3 text-gray-400 text-center">Incluye: Ebook PDF profesional + 45 días de soporte en Telegram.</p>
+                    <p class="text-sm text-gray-200 mb-3">Para validar su compra en Hotmart y asegurar su cupo de asistencia personal:</p>
+                    <ul class="text-sm text-gray-200 list-disc list-inside space-y-1">
+                        <li>**ENVÍE** su comprobante de pago o número de recibo de Hotmart.</li>
+                        <li>**INDIQUE** su nombre de usuario (username) de Telegram.</li>
+                        <li>**MEDIO:** Envíe esta información a nuestro contacto directo de WhatsApp (botón flotante verde en la esquina inferior derecha) o al correo <a href="mailto:Info@web3leg.com" class="font-semibold underline hover:text-white text-yellow-300">Info@web3leg.com</a>.</li>
+                    </ul>
+                    <p class="text-xs text-green-400 mt-2">La validación y el acceso se procesan en un máximo de 4 horas hábiles.</p>
+                </div>
+                </div>
+        </div>
+    </div>
+</header>
 
-                    <!-- NUEVA SECCIÓN: INSTRUCCIONES CLARAS DE ACCESO -->
-                    <div class="mt-6 p-4 bg-green-900/40 border border-green-600 rounded-lg text-left">
-                        <p class="text-lg font-extrabold text-green-300 mb-2 flex items-center">
-                            <!-- Icono de Pasos -->
-                            <svg class="fintech-icon w-6 h-6 mr-2 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-3m-3-4l-3-3m0 0l-3 3m3-3v12"/>
-                            </svg>
-                            PASO 2: ACCESO AL GRUPO PRIVADO
-                        </p>
-                        <p class="text-sm text-gray-200 mb-3">Para validar su compra en Hotmart y asegurar su cupo de asistencia personal:</p>
-                        <ul class="text-sm text-gray-200 list-disc list-inside space-y-1">
-                            <li>**ENVÍE** su comprobante de pago o número de recibo de Hotmart.</li>
-                            <li>**INDIQUE** su nombre de usuario (username) de Telegram.</li>
-                            <li>**MEDIO:** Envíe esta información a nuestro contacto directo de WhatsApp (botón flotante verde en la esquina inferior derecha) o al correo <a href="mailto:Info@web3leg.com" class="font-semibold underline hover:text-white">Info@web3leg.com</a>.</li>
-                        </ul>
-                        <p class="text-xs text-green-400 mt-2">La validación y el acceso se procesan en un máximo de 4 horas hábiles.</p>
-                    </div>
-                    <!-- FIN DE NUEVA SECCIÓN -->
-
+<section class="py-20 px-4 bg-gray-900/50">
+    <div class="container mx-auto max-w-6xl">
+        <h3 class="text-3xl font-extrabold text-center mb-14 text-authority" data-aos="fade-up">Maximizando su Seguridad: Identifique los Riesgos Críticos</h3>
+        
+        <div class="grid md:grid-cols-2 gap-8 text-left">
+            
+            <div class="p-6 pro-card rounded-xl border-l-4 border-red-500 cursor-pointer" data-aos="flip-up">
+                <div class="text-3xl mb-3 text-red-400 font-extrabold flex items-center" onclick="toggleRiskTip('tip-risk-1')">
+                    <svg class="fintech-icon mr-2" id="icon-risk-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8m-3 7H6a2 2 0 01-2-2V5a2 2 0 012-2h5.5M10 17l-3-3m0 0l3-3"/>
+                    </svg>
+                    01. Error de Red
+                </div>
+                <p class="text-xl font-semibold mb-2 text-white">Transferencias Irrecuperables</p>
+                <p class="text-gray-400">El pánico de enviar fondos a una red equivocada y perder el capital por completo. **Este es el riesgo más costoso para un principiante.**</p>
+                <div id="tip-risk-1" class="quick-tip">
+                    **TIP RÁPIDO:** Siempre haga una prueba con una cantidad mínima. Si la red se llama "Ethereum", asegúrese de no usar "Binance Smart Chain (BSC)".
+                </div>
+            </div>
+            
+            <div class="p-6 pro-card rounded-xl border-l-4 border-red-500 cursor-pointer" data-aos="flip-up" data-aos-delay="200">
+                <div class="text-3xl mb-3 text-red-400 font-extrabold flex items-center" onclick="toggleRiskTip('tip-risk-2')">
+                    <svg class="fintech-icon mr-2" id="icon-risk-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                    02. Vulnerabilidad
+                </div>
+                <p class="text-xl font-semibold mb-2 text-white">Gestión de Claves Privadas</p>
+                <p class="text-gray-400">La incertidumbre sobre si la configuración de su wallet y la gestión de sus frases de recuperación son realmente suficientes contra amenazas de estafas.</p>
+                <div id="tip-risk-2" class="quick-tip">
+                    **TIP RÁPIDO:** NUNCA guarde su frase semilla en un archivo digital, correo electrónico, o nube. Escríbala en papel y guárdela bajo llave.
                 </div>
             </div>
         </div>
-    </header>
-
-    <section class="py-20 px-4 bg-gray-900/50">
-        <div class="container mx-auto max-w-6xl">
-            <h3 class="text-3xl font-extrabold text-center mb-14 text-authority">Maximizando su Seguridad: Identifique los Riesgos Críticos</h3>
+        
+        <div class="mt-20">
+            <p class="text-2xl font-extrabold mb-8 text-center text-gray-300 uppercase tracking-wider" data-aos="fade-up">Nuestra Metodología de Éxito:</p>
             
-            <div class="grid md:grid-cols-2 gap-8 text-left">
+            <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-4 max-w-4xl mx-auto">
                 
-                <div class="p-6 pro-card rounded-xl border-l-4 border-red-500">
-                    <div class="text-3xl mb-3 text-red-400 font-extrabold flex items-center">
-                        <!-- Icono de Error -->
-                        <svg class="fintech-icon mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8m-3 7H6a2 2 0 01-2-2V5a2 2 0 012-2h5.5M10 17l-3-3m0 0l3-3"/>
-                        </svg>
-                        01. Error de Red
-                    </div>
-                    <p class="text-xl font-semibold mb-2 text-white">Transferencias Irrecuperables</p>
-                    <p class="text-gray-400">El pánico de enviar fondos a una red equivocada y perder el capital por completo. **Este es el riesgo más costoso para un principiante.**</p>
-                </div>
-                
-                <div class="p-6 pro-card rounded-xl border-l-4 border-red-500">
-                    <div class="text-3xl mb-3 text-red-400 font-extrabold flex items-center">
-                        <!-- Icono de Vulnerabilidad/Candado -->
-                        <svg class="fintech-icon mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                        </svg>
-                        02. Vulnerabilidad
-                    </div>
-                    <p class="text-xl font-semibold mb-2 text-white">Gestión de Claves Privadas</p>
-                    <p class="text-gray-400">La incertidumbre sobre si la configuración de su wallet y la gestión de sus frases de recuperación son realmente suficientes contra amenazas de estafas.</p>
-                </div>
-            </div>
-            
-            <div class="mt-20">
-                <p class="text-2xl font-extrabold mb-8 text-center text-gray-300 uppercase tracking-wider">Nuestra Metodología de Éxito:</p>
-                
-                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-4 max-w-4xl mx-auto">
-                    
-                    <div class="w-full md:w-1/2 p-6 pro-card rounded-xl text-center border-t-8 border-blue-500">
-                        <!-- Contenedor con alineación forzada: line-height: 0 !important; -->
-                        <div class="text-5xl block mb-3 text-blue-400 mx-auto w-10 h-10 leading-none" style="line-height: 0 !important;">
-                            <!-- Icono de libro/Teoría - CLASE DE CORRECCIÓN APLICADA -->
-                            <svg class="fintech-icon w-10 h-10 mx-auto methodology-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.5l8 4.5v9l-8 4.5l-8-4.5v-9l8-4.5zM12 6.5v9M12 11l8 4.5m-8-4.5l-8 4.5"/>
-                            </svg>
-                        </div>
-                        <p class="text-lg font-bold text-blue-400 uppercase">Fase 1: Educación Estructurada</p>
-                        <p class="text-3xl font-black text-white">
-                            Teoría Clara
-                        </p>
-                        <p class="text-sm text-gray-400 mt-2">Fundamentos, terminología y protocolos de seguridad (Ebook).</p>
-                    </div>
-                    
-                    <div class="hidden md:block w-auto text-center">
-                        <span class="text-4xl text-blue-500 font-extrabold">▶</span>
-                    </div>
-                    <div class="block md:hidden w-1/2 h-1 bg-gray-600 rounded-full my-4"></div>
-
-                    <div class="w-full md:w-1/2 p-6 pro-card rounded-xl text-center border-t-8 border-green-500">
-                         <!-- Contenedor con alineación forzada: line-height: 0 !important; -->
-                        <div class="text-5xl block mb-3 text-green-400 mx-auto w-10 h-10 leading-none" style="line-height: 0 !important;">
-                            <!-- Icono de práctica/Check - CLASE DE CORRECCIÓN APLICADA -->
-                            <svg class="fintech-icon w-10 h-10 mx-auto methodology-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2l4-4m5 4a9 9 0 11-18 0a9 9 0 0118 0z"/>
-                            </svg>
-                        </div>
-                        <p class="text-lg font-bold text-green-400 uppercase">Fase 2: Práctica Supervisada</p>
-                        <p class="text-3xl font-black text-white">
-                            Aplicación Segura
-                        </p>
-                        <p class="text-sm text-gray-400 mt-2">Coaching directo para asegurar transferencias y gestión de claves (Asistencia 45 Días).</p>
-                    </div>
-
-                </div>
-            </div>
-            </div>
-    </section>
-
-    <section class="py-20 bg-gray-900 px-4">
-        <div class="container mx-auto max-w-6xl">
-            <h3 class="text-3xl font-extrabold text-center mb-16 text-authority">El Valor Añadido de Nuestro Paquete Profesional</h3>
-            
-            <div class="grid lg:grid-cols-2 gap-12">
-                
-                <div class="p-8 pro-card rounded-2xl border-t-4 border-blue-500">
-                    <h4 class="text-2xl font-bold mb-6 flex items-center text-blue-400">
-                        <!-- Icono de Ebook -->
-                        <svg class="fintech-icon w-8 h-8 mr-3 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="w-full md:w-1/2 p-6 pro-card rounded-xl text-center border-t-8 border-blue-500 cursor-pointer" data-aos="zoom-in-up">
+                    <div class="text-5xl block mb-3 text-blue-400 mx-auto w-10 h-10 leading-none" style="line-height: 0 !important;">
+                        <svg class="fintech-icon w-10 h-10 mx-auto methodology-icon" id="icon-fase-1" onclick="toggleIconColor('icon-fase-1')" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.5l8 4.5v9l-8 4.5l-8-4.5v-9l8-4.5zM12 6.5v9M12 11l8 4.5m-8-4.5l-8 4.5"/>
                         </svg>
-                        1. Ebook: Fundamentos Sólidos (Teoría)
-                    </h4>
-                    <ul class="space-y-4 text-lg text-gray-300">
+                    </div>
+                    <p class="text-lg font-bold text-blue-400 uppercase">Fase 1: Educación Estructurada</p>
+                    <p class="text-3xl font-black text-white">
+                        Teoría Clara
+                    </p>
+                    <p class="text-sm text-gray-400 mt-2">Fundamentos, terminología y protocolos de seguridad (Ebook).</p>
+                </div>
+                
+                <div class="hidden md:block w-auto text-center">
+                    <span class="text-4xl text-blue-500 font-extrabold">▶</span>
+                </div>
+                <div class="block md:hidden w-1/2 h-1 bg-gray-600 rounded-full my-4"></div>
+
+                <div class="w-full md:w-1/2 p-6 pro-card rounded-xl text-center border-t-8 border-green-500 cursor-pointer" data-aos="zoom-in-up" data-aos-delay="200">
+                     <div class="text-5xl block mb-3 text-green-400 mx-auto w-10 h-10 leading-none" style="line-height: 0 !important;">
+                        <svg class="fintech-icon w-10 h-10 mx-auto methodology-icon" id="icon-fase-2" onclick="toggleIconColor('icon-fase-2')" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2l4-4m5 4a9 9 0 11-18 0a9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <p class="text-lg font-bold text-green-400 uppercase">Fase 2: Práctica Supervisada</p>
+                    <p class="text-3xl font-black text-white">
+                        Aplicación Segura
+                    </p>
+                    <p class="text-sm text-gray-400 mt-2">Coaching directo para asegurar transferencias y gestión de claves (Asistencia 45 Días).</p>
+                </div>
+
+            </div>
+        </div>
+        </div>
+</section>
+
+<section class="py-20 bg-gray-900 px-4">
+    <div class="container mx-auto max-w-6xl">
+        <h3 class="text-3xl font-extrabold text-center mb-16 text-authority" data-aos="fade-up">El Valor Añadido de Nuestro Paquete Profesional</h3>
+        
+        <div class="grid lg:grid-cols-2 gap-12">
+            
+            <div class="p-8 pro-card rounded-2xl border-t-4 border-blue-500 cursor-pointer" data-aos="fade-zoom-in">
+                <h4 class="text-2xl font-bold mb-6 flex items-center text-blue-400" onclick="toggleValueIcon('icon-value-1')" style="cursor: pointer;">
+                    <svg class="fintech-icon w-8 h-8 mr-3 text-blue-400" id="icon-value-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.5l8 4.5v9l-8 4.5l-8-4.5v-9l8-4.5zM12 6.5v9M12 11l8 4.5m-8-4.5l-8 4.5"/>
+                    </svg>
+                    1. Ebook: Fundamentos Sólidos (Teoría)
+                </h4>
+                <ul class="space-y-4 text-lg text-gray-300">
+                    <li class="flex items-start">
+                        <svg class="fintech-icon w-5 h-5 mr-3 mt-1 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2l4-4m5 4a9 9 0 11-18 0a9 9 0 0118 0z"/>
+                        </svg>
+                        **Terminología Precisa:** Diferencie Criptomoneda, Token y NFT con claridad conceptual.
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="fintech-icon w-5 h-5 mr-3 mt-1 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2l4-4m5 4a9 9 0 11-18 0a9 9 0 0118 0z"/>
+                        </svg>
+                        **Protocolo de Seguridad:** Domine la gestión de Clave Privada, Frase de Recuperación y Cold Wallet.
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="fintech-icon w-5 h-5 mr-3 mt-1 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2l4-4m5 4a9 9 0 11-18 0a9 9 0 0118 0z"/>
+                        </svg>
+                        **Implementación:** <span class="font-bold">Guía</span> detallada y visual para la creación de su primera wallet sin **errores**.
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="p-8 pro-card rounded-2xl border-t-4 border-blue-500 cursor-pointer" data-aos="fade-zoom-in" data-aos-delay="200">
+                <h4 class="text-2xl font-bold mb-6 flex items-center text-blue-400" onclick="toggleValueIcon('icon-value-2')" style="cursor: pointer;">
+                    <svg class="fintech-icon w-8 h-8 mr-3 text-blue-400" id="icon-value-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-4l-4 4v-4z"/>
+                    </svg>
+                    2. Asistencia Personal Directa (Práctica)
+                </h4>
+                <div class="p-6 rounded-xl bg-blue-900/40 border border-blue-600">
+                    <p class="text-xl font-extrabold mb-4 uppercase tracking-wider text-blue-300">Garantía de Cero Errores Prácticos:</p>
+                    <ul class="space-y-4 text-lg text-gray-200">
                         <li class="flex items-start">
-                            <svg class="fintech-icon w-5 h-5 mr-3 mt-1 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2l4-4m5 4a9 9 0 11-18 0a9 9 0 0118 0z"/>
+                            <svg class="fintech-icon w-5 h-5 mr-3 mt-1 text-yellow-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.39 18c-.77 1.333.192 3 1.732 3z"/>
                             </svg>
-                            **Terminología Precisa:** Diferencie Criptomoneda, Token y NFT con claridad conceptual.
+                            **Simulacros de Transferencia:** Ejercicios guiados en Telegram para eliminar el riesgo de **errores** de red (Vital).
                         </li>
                         <li class="flex items-start">
-                            <svg class="fintech-icon w-5 h-5 mr-3 mt-1 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2l4-4m5 4a9 9 0 11-18 0a9 9 0 0118 0z"/>
+                            <svg class="fintech-icon w-5 h-5 mr-3 mt-1 text-yellow-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15V9m0 0a1 1 0 01-1-1v-2a1 1 0 012 0v2a1 1 0 01-1 1zM7 21a2 2 0 01-2-2V8.138a1 1 0 01.325-.756l1.373-.837a2 2 0 011.85-.027l7.576 3.327a1 1 0 01.325.756V19a2 2 0 01-2 2H7z"/>
                             </svg>
-                            **Protocolo de Seguridad:** Domine la gestión de Clave Privada, Frase de Recuperación y Cold Wallet.
+                            **Refuerzo de Protocolos:** Revisión y consejos personalizados sobre sus prácticas de administración y seguridad.
                         </li>
                         <li class="flex items-start">
-                            <svg class="fintech-icon w-5 h-5 mr-3 mt-1 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2l4-4m5 4a9 9 0 11-18 0a9 9 0 0118 0z"/>
+                            <svg class="fintech-icon w-5 h-5 mr-3 mt-1 text-yellow-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-4l-4 4v-4z"/>
                             </svg>
-                            **Implementación:** <span class="font-bold">Guía</span> detallada y visual para la creación de su primera wallet sin **errores**.
+                            **Soporte Continuo:** Resolución de todas las dudas relacionadas con la aplicación práctica durante 45 días.
                         </li>
                     </ul>
                 </div>
-                
-                <div class="p-8 pro-card rounded-2xl border-t-4 border-blue-500">
-                    <h4 class="text-2xl font-bold mb-6 flex items-center text-blue-400">
-                        <!-- Icono de Chat/Soporte -->
-                        <svg class="fintech-icon w-8 h-8 mr-3 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-4l-4 4v-4z"/>
-                        </svg>
-                        2. Asistencia Personal Directa (Práctica)
-                    </h4>
-                    <div class="p-6 rounded-xl bg-blue-900/40 border border-blue-600">
-                        <p class="text-xl font-extrabold mb-4 uppercase tracking-wider text-blue-300">Garantía de Cero Errores Prácticos:</p>
-                        <ul class="space-y-4 text-lg text-gray-200">
-                            <li class="flex items-start">
-                                <svg class="fintech-icon w-5 h-5 mr-3 mt-1 text-yellow-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.39 18c-.77 1.333.192 3 1.732 3z"/>
-                                </svg>
-                                **Simulacros de Transferencia:** Ejercicios guiados en Telegram para eliminar el riesgo de **errores** de red (Vital).
-                            </li>
-                            <li class="flex items-start">
-                                <svg class="fintech-icon w-5 h-5 mr-3 mt-1 text-yellow-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 15V9m0 0a1 1 0 01-1-1v-2a1 1 0 012 0v2a1 1 0 01-1 1zM7 21a2 2 0 01-2-2V8.138a1 1 0 01.325-.756l1.373-.837a2 2 0 011.85-.027l7.576 3.327a1 1 0 01.325.756V19a2 2 0 01-2 2H7z"/>
-                                </svg>
-                                **Refuerzo de Protocolos:** Revisión y consejos personalizados sobre sus prácticas de administración y seguridad.
-                            </li>
-                            <li class="flex items-start">
-                                <svg class="fintech-icon w-5 h-5 mr-3 mt-1 text-yellow-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-4l-4 4v-4z"/>
-                                </svg>
-                                **Soporte Continuo:** Resolución de todas las dudas relacionadas con la aplicación práctica durante 45 días.
-                            </li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="py-20 px-4 bg-gray-900/50">
-        <div class="container mx-auto max-w-5xl">
-            <h3 class="text-3xl font-extrabold text-center mb-14 text-authority">Análisis de Valor: ¿Qué Nivel de Seguridad Prefiere?</h3>
-            
-            <div class="overflow-x-auto">
-                <table class="w-full text-left rounded-xl overflow-hidden border border-gray-700 shadow-xl table-container">
-                    <thead class="bg-gray-800 border-b border-gray-700">
-                        <tr>
-                            <th class="p-5 text-gray-400 uppercase tracking-wider text-sm font-semibold">Factor de Éxito</th>
-                            <th class="p-5 text-center text-gray-400 uppercase tracking-wider text-sm">Opción Estándar (Ebook - Amazon/Web)</th>
-                            <th class="p-5 text-center text-white font-extrabold bg-blue-600 border-l border-blue-500 text-base">⭐ Paquete PREMIUM (Recomendado)</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-700">
-                        <tr class="bg-gray-800 hover:bg-gray-700 transition duration-150">
-                            <td class="p-5 font-semibold text-gray-200">Inversión Total</td>
-                            <td class="p-5 text-center text-lg text-gray-300">$4.99 USD</td>
-                            <td class="p-5 text-center text-2xl font-black text-blue-400">$35.00 USD</td>
-                        </tr>
-                        <tr class="bg-gray-800 hover:bg-gray-700 transition duration-150">
-                            <td class="p-5 font-semibold text-gray-200">Acceso a Consultor Experto</td>
-                            <td class="p-5 text-center text-red-500">❌ No Incluido</td>
-                            <td class="p-5 text-center text-green-400 font-bold">✅ 45 Días Vía Telegram</td>
-                        </tr>
-                        <tr class="bg-gray-800 hover:bg-gray-700 transition duration-150">
-                            <td class="p-5 font-semibold text-gray-200">Mitigación de Errores de Red</td>
-                            <td class="p-5 text-center text-yellow-500">Solo Guía Teórica</td>
-                            <td class="p-5 text-center text-green-400 font-bold">✅ Coaching Práctico Directo</td>
-                        </tr>
-                        <tr class="bg-gray-800 hover:bg-gray-700 transition duration-150">
-                            <td class="p-5 font-semibold text-gray-200">Nivel de Confianza Personal</td>
-                            <td class="p-5 text-center text-yellow-500">Medio (Autogestión)</td>
-                            <td class="p-5 text-center text-green-400 font-bold text-lg">Alto (Con Respaldo Profesional)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            <div class="text-center mt-12 p-6 bg-blue-900/40 border border-blue-600/50">
-                 <p class="text-2xl font-bold text-blue-300">El costo de la tranquilidad es mínimo comparado con el riesgo de una pérdida permanente.</p>
-                 <p class="text-3xl font-extrabold text-white mt-2">ASEGURE SU INVERSIÓN.</p>
-            </div>
+<section class="py-20 px-4 bg-gray-900/50">
+    <div class="container mx-auto max-w-5xl">
+        <h3 class="text-3xl font-extrabold text-center mb-14 text-authority" data-aos="fade-up">Análisis de Valor: ¿Qué Nivel de Seguridad Prefiere?</h3>
+        
+        <div class="overflow-x-auto" data-aos="slide-up">
+            <table class="w-full text-left rounded-xl overflow-hidden border border-gray-700 shadow-xl table-container">
+                <thead class="bg-gray-800 border-b border-gray-700">
+                    <tr>
+                        <th class="p-5 text-gray-400 uppercase tracking-wider text-sm font-semibold">Factor de Éxito</th>
+                        <th class="p-5 text-center text-gray-400 uppercase tracking-wider text-sm">Opción Estándar (Ebook - Amazon/Web)</th>
+                        <th class="p-5 text-center text-white font-extrabold bg-blue-600 border-l border-blue-500 text-base">⭐ Paquete PREMIUM (Recomendado)</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-700">
+                    <tr class="bg-gray-800 hover:bg-gray-700 transition duration-150">
+                        <td class="p-5 font-semibold text-gray-200">Inversión Total</td>
+                        <td class="p-5 text-center text-lg text-gray-300">$4.99 USD</td>
+                        <td class="p-5 text-center text-2xl font-black text-blue-400">$35.00 USD</td>
+                    </tr>
+                    <tr class="bg-gray-800 hover:bg-gray-700 transition duration-150">
+                        <td class="p-5 font-semibold text-gray-200">Acceso a Consultor Experto</td>
+                        <td class="p-5 text-center text-red-500">❌ No Incluido</td>
+                        <td class="p-5 text-center text-green-400 font-bold">✅ 45 Días Vía Telegram</td>
+                    </tr>
+                    <tr class="bg-gray-800 hover:bg-gray-700 transition duration-150">
+                        <td class="p-5 font-semibold text-gray-200">Mitigación de Errores de Red</td>
+                        <td class="p-5 text-center text-yellow-500">Solo Guía Teórica</td>
+                        <td class="p-5 text-center text-green-400 font-bold">✅ Coaching Práctico Directo</td>
+                    </tr>
+                    <tr class="bg-gray-800 hover:bg-gray-700 transition duration-150">
+                        <td class="p-5 font-semibold text-gray-200">Nivel de Confianza Personal</td>
+                        <td class="p-5 text-center text-yellow-500">Medio (Autogestión)</td>
+                        <td class="p-5 text-center text-green-400 font-bold text-lg">Alto (Con Respaldo Profesional)</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    </section>
+        
+        <div class="text-center mt-12 p-6 bg-blue-900/40 border border-blue-600/50" data-aos="fade-up">
+             <p class="text-2xl font-bold text-blue-300">El costo de la tranquilidad es mínimo comparado con el riesgo de una pérdida permanente.</p>
+             <p class="text-3xl font-extrabold text-white mt-2">ASEGURE SU INVERSIÓN.</p>
+        </div>
+    </div>
+</section>
+
+<section class="py-16 bg-gray-900 px-4">
+    <div class="container mx-auto max-w-4xl text-center">
+        <h4 class="text-2xl font-bold mb-4 text-authority uppercase tracking-wider" data-aos="fade-up">Acerca del Autor</h4>
+        <div class="bg-gray-800 p-8 rounded-xl pro-card border-l-4 border-blue-500" data-aos="flip-right">
+            <p class="text-xl font-extrabold mb-3 text-blue-400">BYRON VIRULA</p>
+            <p class="text-gray-300 text-lg leading-relaxed">
+                Conocedor Práctico de la seguridad de activos digitales y creador del ebook 'Tu primera wallet digital', enfocado en la administración segura de wallets digitales y transacciones para reducir las pérdidas por falta de conocimiento fundamental. Mi compromiso es facilitar su ingreso al ecosistema cripto con una curva de aprendizaje mínima y concisa.
+            </p>
+            <p class="mt-4 text-sm text-gray-500 font-medium">Este paquete es la suma de años de experiencia para proteger su capital.</p>
+        </div>
+    </div>
+</section>
+
+<section class="py-16 px-4 text-center">
+    <h3 class="text-4xl font-extrabold mb-6 text-white" data-aos="fade-up">
+        No Inicie Solo: Obtenga Soporte y Cero Errores.
+    </h3>
+    <p class="text-xl text-gray-400 mb-8 font-normal" data-aos="fade-up" data-aos-delay="200">
+        Asegure sus primeros pasos con una guía y soporte directo para un inicio sin pérdidas.
+    </p>
     
-    <section class="py-16 bg-gray-900 px-4">
-        <div class="container mx-auto max-w-4xl text-center">
-            <h4 class="text-2xl font-bold mb-4 text-authority uppercase tracking-wider">Acerca del Autor</h4>
-            <div class="bg-gray-800 p-8 rounded-xl pro-card border-l-4 border-blue-500">
-                <p class="text-xl font-extrabold mb-3 text-blue-400">BYRON VIRULA</p>
-                <p class="text-gray-300 text-lg leading-relaxed">
-                    Conocedor Práctico de la seguridad de activos digitales y creador del ebook 'Tu primera wallet digital', enfocado en la administración segura de wallets digitales y transacciones para reducir las pérdidas por falta de conocimiento fundamental. Mi compromiso es facilitar su ingreso al ecosistema cripto con una curva de aprendizaje mínima y concisa.
-                </p>
-                <p class="mt-4 text-sm text-gray-500 font-medium">Este paquete es la suma de años de experiencia para proteger su capital.</p>
-            </div>
-        </div>
-    </section>
+    <div class="w-full md:w-3/4 lg:w-1/2 mx-auto" data-aos="zoom-in">
+        <a href="https://pay.hotmart.com/R101976222F" 
+           class="cta-button w-full inline-block py-5 text-2xl font-black uppercase rounded-lg text-white tracking-widest hover:scale-[1.01] no-underline text-center"
+           aria-label="Acceder al Paquete Premium"
+           onmousedown="setCtaActive(this)" onmouseup="setCtaInactive(this)"
+           >
+            ACCEDER AL PAQUETE PREMIUM
+        </a>
+        <p class="text-sm mt-3 text-gray-500 font-medium">El acceso a la asistencia personal es limitado para garantizar un servicio de alta calidad.</p>
+    </div>
+</section>
 
-    <section class="py-16 px-4 text-center">
-        <!-- TEXTO PRINCIPAL REEMPLAZADO -->
-        <h3 class="text-4xl font-extrabold mb-6 text-white">
-            No Inicie Solo: Obtenga Soporte y Cero Errores.
-        </h3>
-        <!-- TEXTO SECUNDARIO REEMPLAZADO -->
-        <p class="text-xl text-gray-400 mb-8 font-normal">
-            Asegure sus primeros pasos con una guía y soporte directo para un inicio sin pérdidas.
-        </p>
-        
-        <div class="w-full md:w-3/4 lg:w-1/2 mx-auto">
-            <a href="https://pay.hotmart.com/R101976222F" 
-               class="cta-button w-full inline-block py-5 text-2xl font-black uppercase rounded-lg text-white tracking-widest hover:scale-[1.01] no-underline text-center"
-               aria-label="Acceder al Paquete Premium">
-                ACCEDER AL PAQUETE PREMIUM
-            </a>
-            <p class="text-sm mt-3 text-gray-500 font-medium">El acceso a la asistencia personal es limitado para garantizar un servicio de alta calidad.</p>
-        </div>
-    </section>
+<a href="https://wa.me/50259789810?text=Hola,%20quisiera%20más%20información%20sobre%20el%20Paquete%20Premium%20de%20la%20Guía%20Wallet." 
+   class="whatsapp-float-btn" 
+   target="_blank" 
+   aria-label="Contactar por WhatsApp">
+    <i class="fa fa-whatsapp"></i>
+</a>
 
-    <!-- BOTÓN FLOTANTE DE WHATSAPP (Ajustado a FA 4.5) -->
-    <a href="https://wa.me/50259789810?text=Hola,%20acabo%20de%20comprar%20el%20Paquete%20Premium.%20Mi%20usuario%20de%20Telegram%20es:%20[SU%20USUARIO]%20y%20adjunto%20comprobante." 
-       class="whatsapp-float-btn" 
-       target="_blank" 
-       aria-label="Contactar por WhatsApp">
-        <!-- Ícono de Font Awesome 4.5 -->
-        <i class="fa fa-whatsapp"></i>
-    </a>
+<footer class="bg-gray-900 py-8 mt-12 text-center text-gray-500 text-sm">
+    <p>&copy; 2025 Byron Virula. Todos los derechos reservados. | Operación y Soporte de Activos Digitales.</p>
     
-    <footer class="bg-gray-900 py-8 mt-12 text-center text-gray-500 text-sm">
-        <p>&copy; 2025 Byron Virula. Todos los derechos reservados. | Operación y Soporte de Activos Digitales.</p>
-        
-        <!-- INFORMACIÓN DE CONTACTO -->
-        <div class="mt-4 flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-4 text-gray-400 text-base font-medium">
-             <div class="flex items-center justify-center">
-                <!-- Icono de Correo Electrónico (SVG) -->
-                <svg class="fintech-icon w-5 h-5 mr-1 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-1 12H4a2 2 0 01-2-2V6a2 2 0 012-2h16a2 2 0 012 2v12a2 2 0 01-2 2z"/>
-                </svg>
-                <a href="mailto:Info@web3leg.com" class="hover:text-white transition duration-200">Info@web3leg.com</a>
-            </div>
-            
-            <span class="hidden sm:block text-gray-600">|</span>
-
-             <div class="flex items-center justify-center">
-                <!-- Icono de WhatsApp (SVG) -->
-                <svg class="fintech-icon w-5 h-5 mr-1 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                </svg>
-                <a href="https://wa.me/50259789810" target="_blank" class="hover:text-white transition duration-200">+502 5978 9810 (WhatsApp)</a>
-            </div>
+    <div class="mt-4 flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-4 text-gray-400 text-base font-medium">
+         <div class="flex items-center justify-center">
+            <svg class="fintech-icon w-5 h-5 mr-1 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-1 12H4a2 2 0 01-2-2V6a2 2 0 012-2h16a2 2 0 012 2v12a2 2 0 01-2 2z"/>
+            </svg>
+            <a href="mailto:Info@web3leg.com" class="hover:text-white transition duration-200">Info@web3leg.com</a>
         </div>
         
-        <p class="mt-4 text-xs"><a href="#" class="hover:text-white transition duration-200 underline">Términos y Condiciones</a> | <a href="#" class="hover:text-white transition duration-200 underline">Política de Privacidad</a></p>
-    </footer>
+        <span class="hidden sm:block text-gray-600">|</span>
+
+         <div class="flex items-center justify-center">
+            <svg class="fintech-icon w-5 h-5 mr-1 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+            </svg>
+            <a href="https://wa.me/50259789810" target="_blank" class="hover:text-white transition duration-200">+502 5978 9810 (WhatsApp)</a>
+        </div>
+    </div>
+    
+    <p class="mt-4 text-xs"><a href="#" class="hover:text-white transition duration-200 underline">Términos y Condiciones</a> | <a href="#" class="hover:text-white transition duration-200 underline">Política de Privacidad</a></p>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    /**
+     * Alterna el color de los iconos de la metodología (Fase 1 y Fase 2)
+     */
+    function toggleIconColor(iconId) {
+        const icon = document.getElementById(iconId);
+        
+        if (!icon) return;
+
+        // Se usa 'text-blue-400' y 'text-green-400' como colores originales según el diseño
+        const originalColor = iconId.includes('fase-1') ? 'text-blue-400' : 'text-green-400';
+        const activeColor = 'text-red-500';
+        const activeStroke = '#ef4444'; 
+
+        if (icon.classList.contains(activeColor)) {
+            icon.classList.remove(activeColor);
+            icon.classList.add(originalColor);
+            icon.style.stroke = ''; 
+            icon.style.transform = icon.style.transform.replace('scale(1.1)', '');
+        } else {
+            icon.classList.remove(originalColor);
+            icon.classList.add(activeColor);
+            icon.style.stroke = activeStroke;
+            icon.style.transform = icon.style.transform.trim() + ' scale(1.1)';
+        }
+    }
+
+    /**
+     * Alterna el zoom de la imagen de portada.
+     */
+    function toggleZoom() {
+        const imgElement = document.getElementById('ebook-portada');
+        if (!imgElement) return;
+        // La clase 'zoom-effect' aplica la transformación CSS
+        imgElement.classList.toggle('zoom-effect'); 
+    }
+
+    /**
+     * Muestra/oculta un consejo rápido y cambia el color del icono
+     * para la sección de Riesgos Críticos.
+     */
+    function toggleRiskTip(tipId) {
+        const tip = document.getElementById(tipId);
+        const iconId = tipId.replace('tip-', 'icon-');
+        const icon = document.getElementById(iconId);
+
+        if (!tip || !icon) return;
+
+        tip.classList.toggle('active');
+
+        // Cambiar color del icono
+        icon.classList.toggle('text-yellow-400');
+        icon.classList.toggle('text-red-500'); 
+    }
+
+    /**
+     * Cambia el color y gira los iconos de la sección "Valor Añadido".
+     */
+    function toggleValueIcon(iconId) {
+        const icon = document.getElementById(iconId);
+        if (!icon) return;
+        
+        icon.classList.toggle('icon-activated');
+    }
+
+    /**
+     * Efecto de "clic" dinámico para el botón CTA.
+     */
+    function setCtaActive(button) {
+        button.classList.add('cta-button-clicked');
+    }
+
+    function setCtaInactive(button) {
+        // Un pequeño retardo para que el efecto visual sea perceptible
+        setTimeout(() => {
+            button.classList.remove('cta-button-clicked');
+        }, 100); 
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inicialización de AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Aplicar el efecto CTA a todos los botones con la clase 'cta-button' que tienen el href de Hotmart
+        const ctaButtons = document.querySelectorAll('a[href*="hotmart.com"]');
+        ctaButtons.forEach(button => {
+            button.setAttribute('onmousedown', 'setCtaActive(this)');
+            button.setAttribute('onmouseup', 'setCtaInactive(this)');
+            button.setAttribute('ontouchstart', 'setCtaActive(this)');
+            button.setAttribute('ontouchend', 'setCtaInactive(this)');
+        });
+
+        // NOTA: Los eventos onclick y onmousedown/onmouseup están aplicados directamente en el HTML.
+    });
+</script>
 
 </body>
 </html>
