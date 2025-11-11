@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Primera Wallet Digital - Paquete Premium</title>
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Script de Three.js para la animación de partículas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
         /* CONFIGURACIÓN BASE - Dark Fintech Elegante */
@@ -21,20 +24,37 @@
         .header-bg {
             background: #6A0DAD; /* Púrpura brillante */
         }
-        
+
+        /* CAPA DE PARTÍCULAS */
+        #particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Asegura que esté detrás de todo el contenido */
+        }
+        /* Configuración del CANVAS de Three.js para las partículas */
+        #particles-container canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+
         /* CTA BUTTON - Azul principal de confianza y tecnología */
         .cta-button {
             background-color: #3b82f6; /* Azul brillante y confiable */
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
             font-weight: 700;
-            text-decoration: none !important; 
+            text-decoration: none !important;
         }
         .cta-button:hover {
             background-color: #2563eb;
             transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(37, 99, 235, 0.6);
-            text-decoration: none !important; 
+            text-decoration: none !important;
         }
         /* CLASE ADICIONAL PARA EFECTO DE CLICK EN CTA (JAVASCRIPT) */
         .cta-button-clicked {
@@ -59,7 +79,7 @@
         .text-authority {
             color: #60a5fa; /* Azul claro para destacar sobre fondo oscuro */
         }
-        
+
         /* Contenedor principal de la tabla para fondo oscuro */
         .table-container {
             background-color: #1a202c;
@@ -80,11 +100,11 @@
             color: #fcd34d !important; /* Amarillo para resaltar (usado en JS click) */
             transform: rotate(10deg) scale(1.1);
         }
-        
+
         /* CORRECCIÓN FORZADA PARA LOS ÍCONOS DE METODOLOGÍA (Fase 1 y 2) */
         .methodology-icon {
             transform: translateY(-15px); /* Desplazamiento vertical forzado hacia arriba */
-            display: block !important; 
+            display: block !important;
             z-index: 10;
         }
 
@@ -119,10 +139,10 @@
             transition: all 0.3s ease;
         }
         .zoom-effect {
-            transform: scale(1.8) translateY(10%); 
+            transform: scale(1.8) translateY(10%);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
-            z-index: 50; 
-            border-color: #fcd34d !important; 
+            z-index: 50;
+            border-color: #fcd34d !important;
         }
         /* CONTENEDOR DE CONSEJO RÁPIDO PARA RIESGOS */
         .quick-tip {
@@ -168,6 +188,10 @@
     </style>
 </head>
 <body class="min-h-screen">
+
+<!-- 1. CONTENEDOR DE PARTÍCULAS (CANVAS DE THREE.JS) -->
+<div id="particles-container"></div>
+
 <header class="header-bg py-16 md:py-24 text-center rounded-b-3xl shadow-xl">
     <div class="container mx-auto px-4 max-w-6xl">
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight text-white" data-aos="fade-down">
@@ -178,23 +202,24 @@
             Adquiera los fundamentos clave y reciba **45 Días de Asistencia Personal Directa**
             para blindar su inversión contra **errores** costosos.
         </h2>
-        
+
         <div class="flex flex-col lg:flex-row justify-center items-center lg:space-x-12 space-y-10 lg:space-y-0">
-            
+
             <div class="w-3/4 md:w-1/3 max-w-xs transition duration-300 hover:scale-[1.03] zoom-container">
-                <img src="PORTADA_EBOOK.jpg" 
-                     alt="Portada del Ebook Tu Primera Wallet Digital" 
+                <img src="PORTADA_EBOOK.jpg"
+                     alt="Portada del Ebook Tu Primera Wallet Digital"
                      class="w-full rounded-xl shadow-2xl border-4 border-blue-400/50 cursor-pointer transition-transform duration-300 ease-in-out"
                      id="ebook-portada"
+                     onerror="this.onerror=null; this.src='https://placehold.co/300x400/3b82f6/ffffff?text=Portada+Ebook'"
                      onclick="toggleZoom()">
             </div>
 
             <div class="w-full lg:w-2/5 max-w-lg p-8 bg-gray-800 rounded-xl shadow-2xl border border-blue-500/50 text-left" data-aos="fade-left">
                 <p class="text-xl font-semibold mb-2 text-gray-300">Paquete de Formación + Soporte (El Camino Seguro):</p>
-                <p class="text-5xl font-black mb-6 text-authority"> 
+                <p class="text-5xl font-black mb-6 text-authority">
                     $35 <span class="text-2xl text-gray-400 font-bold">USD</span>
                 </p>
-                <a href="https://pay.hotmart.com/R101976222F" 
+                <a href="https://pay.hotmart.com/R101976222F"
                    class="cta-button w-full inline-block py-4 text-xl font-extrabold uppercase rounded-lg text-white tracking-wider no-underline text-center"
                    aria-label="Acceder al Paquete Premium"
                    onmousedown="setCtaActive(this)" onmouseup="setCtaInactive(this)"
@@ -226,9 +251,9 @@
 <section class="py-20 px-4 bg-gray-900/50">
     <div class="container mx-auto max-w-6xl">
         <h3 class="text-3xl font-extrabold text-center mb-14 text-authority" data-aos="fade-up">Maximizando su Seguridad: Identifique los Riesgos Críticos</h3>
-        
+
         <div class="grid md:grid-cols-2 gap-8 text-left">
-            
+
             <div class="p-6 pro-card rounded-xl border-l-4 border-red-500 cursor-pointer" data-aos="flip-up">
                 <div class="text-3xl mb-3 text-red-400 font-extrabold flex items-center" onclick="toggleRiskTip('tip-risk-1')">
                     <svg class="fintech-icon mr-2" id="icon-risk-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -242,7 +267,7 @@
                     **TIP RÁPIDO:** Siempre haga una prueba con una cantidad mínima. Si la red se llama "Ethereum", asegúrese de no usar "Binance Smart Chain (BSC)".
                 </div>
             </div>
-            
+
             <div class="p-6 pro-card rounded-xl border-l-4 border-red-500 cursor-pointer" data-aos="flip-up" data-aos-delay="200">
                 <div class="text-3xl mb-3 text-red-400 font-extrabold flex items-center" onclick="toggleRiskTip('tip-risk-2')">
                     <svg class="fintech-icon mr-2" id="icon-risk-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -257,12 +282,12 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="mt-20">
             <p class="text-2xl font-extrabold mb-8 text-center text-gray-300 uppercase tracking-wider" data-aos="fade-up">Nuestra Metodología de Éxito:</p>
-            
+
             <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-4 max-w-4xl mx-auto">
-                
+
                 <div class="w-full md:w-1/2 p-6 pro-card rounded-xl text-center border-t-8 border-blue-500 cursor-pointer" data-aos="zoom-in-up">
                     <div class="text-5xl block mb-3 text-blue-400 mx-auto w-10 h-10 leading-none" style="line-height: 0 !important;">
                         <svg class="fintech-icon w-10 h-10 mx-auto methodology-icon" id="icon-fase-1" onclick="toggleIconColor('icon-fase-1')" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -275,7 +300,7 @@
                     </p>
                     <p class="text-sm text-gray-400 mt-2">Fundamentos, terminología y protocolos de seguridad (Ebook).</p>
                 </div>
-                
+
                 <div class="hidden md:block w-auto text-center">
                     <span class="text-4xl text-blue-500 font-extrabold">▶</span>
                 </div>
@@ -302,9 +327,9 @@
 <section class="py-20 bg-gray-900 px-4">
     <div class="container mx-auto max-w-6xl">
         <h3 class="text-3xl font-extrabold text-center mb-16 text-authority" data-aos="fade-up">El Valor Añadido de Nuestro Paquete Profesional</h3>
-        
+
         <div class="grid lg:grid-cols-2 gap-12">
-            
+
             <div class="p-8 pro-card rounded-2xl border-t-4 border-blue-500 cursor-pointer" data-aos="fade-zoom-in">
                 <h4 class="text-2xl font-bold mb-6 flex items-center text-blue-400" onclick="toggleValueIcon('icon-value-1')" style="cursor: pointer;">
                     <svg class="fintech-icon w-8 h-8 mr-3 text-blue-400" id="icon-value-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -333,7 +358,7 @@
                     </li>
                 </ul>
             </div>
-            
+
             <div class="p-8 pro-card rounded-2xl border-t-4 border-blue-500 cursor-pointer" data-aos="fade-zoom-in" data-aos-delay="200">
                 <h4 class="text-2xl font-bold mb-6 flex items-center text-blue-400" onclick="toggleValueIcon('icon-value-2')" style="cursor: pointer;">
                     <svg class="fintech-icon w-8 h-8 mr-3 text-blue-400" id="icon-value-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -372,7 +397,7 @@
 <section class="py-20 px-4 bg-gray-900/50">
     <div class="container mx-auto max-w-5xl">
         <h3 class="text-3xl font-extrabold text-center mb-14 text-authority" data-aos="fade-up">Análisis de Valor: ¿Qué Nivel de Seguridad Prefiere?</h3>
-        
+
         <div class="overflow-x-auto" data-aos="slide-up">
             <table class="w-full text-left rounded-xl overflow-hidden border border-gray-700 shadow-xl table-container">
                 <thead class="bg-gray-800 border-b border-gray-700">
@@ -406,7 +431,7 @@
                 </tbody>
             </table>
         </div>
-        
+
         <div class="text-center mt-12 p-6 bg-blue-900/40 border border-blue-600/50" data-aos="fade-up">
              <p class="text-2xl font-bold text-blue-300">El costo de la tranquilidad es mínimo comparado con el riesgo de una pérdida permanente.</p>
              <p class="text-3xl font-extrabold text-white mt-2">ASEGURE SU INVERSIÓN.</p>
@@ -434,9 +459,9 @@
     <p class="text-xl text-gray-400 mb-8 font-normal" data-aos="fade-up" data-aos-delay="200">
         Asegure sus primeros pasos con una guía y soporte directo para un inicio sin pérdidas.
     </p>
-    
+
     <div class="w-full md:w-3/4 lg:w-1/2 mx-auto" data-aos="zoom-in">
-        <a href="https://pay.hotmart.com/R101976222F" 
+        <a href="https://pay.hotmart.com/R101976222F"
            class="cta-button w-full inline-block py-5 text-2xl font-black uppercase rounded-lg text-white tracking-widest hover:scale-[1.01] no-underline text-center"
            aria-label="Acceder al Paquete Premium"
            onmousedown="setCtaActive(this)" onmouseup="setCtaInactive(this)"
@@ -447,16 +472,16 @@
     </div>
 </section>
 
-<a href="https://wa.me/50259789810?text=Hola,%20quisiera%20más%20información%20sobre%20el%20Paquete%20Premium%20de%20la%20Guía%20Wallet." 
-   class="whatsapp-float-btn" 
-   target="_blank" 
+<a href="https://wa.me/50259789810?text=Hola,%20quisiera%20más%20información%20sobre%20el%20Paquete%20Premium%20de%20la%20Guía%20Wallet."
+   class="whatsapp-float-btn"
+   target="_blank"
    aria-label="Contactar por WhatsApp">
     <i class="fa fa-whatsapp"></i>
 </a>
 
 <footer class="bg-gray-900 py-8 mt-12 text-center text-gray-500 text-sm">
     <p>&copy; 2025 Byron Virula. Todos los derechos reservados. | Operación y Soporte de Activos Digitales.</p>
-    
+
     <div class="mt-4 flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-4 text-gray-400 text-base font-medium">
          <div class="flex items-center justify-center">
             <svg class="fintech-icon w-5 h-5 mr-1 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -464,7 +489,7 @@
             </svg>
             <a href="mailto:Info@web3leg.com" class="hover:text-white transition duration-200">Info@web3leg.com</a>
         </div>
-        
+
         <span class="hidden sm:block text-gray-600">|</span>
 
          <div class="flex items-center justify-center">
@@ -474,29 +499,169 @@
             <a href="https://wa.me/50259789810" target="_blank" class="hover:text-white transition duration-200">+502 5978 9810 (WhatsApp)</a>
         </div>
     </div>
-    
+
     <p class="mt-4 text-xs"><a href="#" class="hover:text-white transition duration-200 underline">Términos y Condiciones</a> | <a href="#" class="hover:text-white transition duration-200 underline">Política de Privacidad</a></p>
+    
 </footer>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+    // --- LÓGICA DE PARTÍCULAS (Three.js) ---
+
+    // Creates a textured particle (canvas) based on the symbol and color.
+    // Only BTC displays the symbol; others show a solid color circle.
+    function createCryptoTexture(symbol, backgroundColor, foregroundColor) {
+        const canvas = document.createElement('canvas');
+        canvas.width = 64;
+        canvas.height = 64;
+        const ctx = canvas.getContext('2d');
+        
+        // Background circle (Solid Color)
+        ctx.beginPath();
+        ctx.arc(32, 32, 30, 0, Math.PI * 2, false);
+        ctx.fillStyle = backgroundColor;
+        ctx.fill();
+
+        // Draw Bitcoin symbol only
+        if (symbol === 'BTC') {
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = foregroundColor; // White
+            ctx.font = 'bold 36px Inter';
+            ctx.fillText('₿', 32, 32);
+        }
+        
+        return new THREE.CanvasTexture(canvas);
+    }
+
+    function initParticles() {
+        const container = document.getElementById('particles-container');
+        if (!container) return;
+
+        let scene, camera, renderer, particlesGroup; // Changed 'particles' to 'particlesGroup'
+        
+        // Initialize Scene
+        scene = new THREE.Scene();
+
+        // Initialize Camera
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 500;
+
+        // Initialize Renderer
+        renderer = new THREE.WebGLRenderer({ alpha: true }); 
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        container.appendChild(renderer.domElement);
+
+        // Define textures: BTC with logo, others as solid circles
+        const cryptoTextures = [
+            // 1. Bitcoin (BTC) - Orange with symbol
+            createCryptoTexture('BTC', '#f7931a', '#FFFFFF'), 
+            // 2. Dogecoin (DOGE) - Yellow solid circle
+            createCryptoTexture('DOGE', '#C2A633', '#FFFFFF'), 
+            // 3. Tron (TRX) - Red solid circle
+            createCryptoTexture('TRX', '#E51C34', '#FFFFFF'), 
+            // 4. Litecoin (LTC) - Blue solid circle
+            createCryptoTexture('LTC', '#345D9D', '#FFFFFF'), 
+            // 5. Tether (USDT) - Green solid circle (often represented by green)
+            createCryptoTexture('USDT', '#50AF95', '#FFFFFF'), 
+        ];
+
+        const particleCount = 2500; 
+
+        // Create initial positions and texture index for ALL particles
+        const positions = [];
+        const textureIndices = [];
+
+        for (let i = 0; i < particleCount; i++) {
+            // Position particles in a large cube
+            const x = Math.random() * 2000 - 1000;
+            const y = Math.random() * 2000 - 1000;
+            const z = Math.random() * 2000 - 1000;
+            positions.push(x, y, z);
+
+            // Assign a random texture index
+            textureIndices.push(Math.floor(Math.random() * cryptoTextures.length));
+        }
+        
+        // Create a group to hold all points objects
+        particlesGroup = new THREE.Group(); 
+
+        // Create a separate Points object for each texture type
+        cryptoTextures.forEach((texture, index) => {
+            const filteredPositions = [];
+            
+            // Collect positions belonging to this specific texture index
+            for (let i = 0; i < particleCount; i++) {
+                if (textureIndices[i] === index) {
+                    filteredPositions.push(
+                        positions[i * 3],
+                        positions[i * 3 + 1],
+                        positions[i * 3 + 2]
+                    );
+                }
+            }
+            
+            if (filteredPositions.length === 0) return;
+
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(filteredPositions, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 15, 
+                map: texture, 
+                transparent: true,
+                opacity: 0.9,
+                blending: THREE.AdditiveBlending 
+            });
+
+            const points = new THREE.Points(geometry, material);
+            particlesGroup.add(points);
+        });
+
+        scene.add(particlesGroup);
+
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate the group of particles for slow movement effect
+            particlesGroup.rotation.x += 0.0001;
+            particlesGroup.rotation.y += 0.0003;
+
+            renderer.render(scene, camera);
+        }
+
+        // Handle window resizing
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        window.addEventListener('resize', onWindowResize);
+        animate();
+    }
+    // --- END PARTICLE LOGIC ---
+
+
     /**
      * Alterna el color de los iconos de la metodología (Fase 1 y Fase 2)
      */
     function toggleIconColor(iconId) {
         const icon = document.getElementById(iconId);
-        
+
         if (!icon) return;
 
         // Se usa 'text-blue-400' y 'text-green-400' como colores originales según el diseño
         const originalColor = iconId.includes('fase-1') ? 'text-blue-400' : 'text-green-400';
         const activeColor = 'text-red-500';
-        const activeStroke = '#ef4444'; 
+        const activeStroke = '#ef4444';
 
         if (icon.classList.contains(activeColor)) {
             icon.classList.remove(activeColor);
             icon.classList.add(originalColor);
-            icon.style.stroke = ''; 
+            icon.style.stroke = '';
             icon.style.transform = icon.style.transform.replace('scale(1.1)', '');
         } else {
             icon.classList.remove(originalColor);
@@ -513,7 +678,7 @@
         const imgElement = document.getElementById('ebook-portada');
         if (!imgElement) return;
         // La clase 'zoom-effect' aplica la transformación CSS
-        imgElement.classList.toggle('zoom-effect'); 
+        imgElement.classList.toggle('zoom-effect');
     }
 
     /**
@@ -531,7 +696,7 @@
 
         // Cambiar color del icono
         icon.classList.toggle('text-yellow-400');
-        icon.classList.toggle('text-red-500'); 
+        icon.classList.toggle('text-red-500');
     }
 
     /**
@@ -540,7 +705,7 @@
     function toggleValueIcon(iconId) {
         const icon = document.getElementById(iconId);
         if (!icon) return;
-        
+
         icon.classList.toggle('icon-activated');
     }
 
@@ -555,7 +720,7 @@
         // Un pequeño retardo para que el efecto visual sea perceptible
         setTimeout(() => {
             button.classList.remove('cta-button-clicked');
-        }, 100); 
+        }, 100);
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -574,8 +739,18 @@
             button.setAttribute('ontouchend', 'setCtaInactive(this)');
         });
 
-        // NOTA: Los eventos onclick y onmousedown/onmouseup están aplicados directamente en el HTML.
+        // Inicializar las partículas después de que el DOM esté listo
+        initParticles();
     });
+
+    // Asegurar que las funciones estén disponibles globalmente
+    window.toggleIconColor = toggleIconColor;
+    window.toggleZoom = toggleZoom;
+    window.toggleRiskTip = toggleRiskTip;
+    window.toggleValueIcon = toggleValueIcon;
+    window.setCtaActive = setCtaActive;
+    window.setCtaInactive = setCtaInactive;
+
 </script>
 
 </body>
